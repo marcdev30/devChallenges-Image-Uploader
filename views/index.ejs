@@ -1,0 +1,28 @@
+<%- include('partials/header') -%>
+
+    <div id="select-file" class="card">
+        <form action="/upload" method="POST" enctype="multipart/form-data" id="form">
+            <h2 class="card-title">Upload your image</h2>
+            <h3 class="card-text">File should be Jpeg, Png, ...</h3>
+            <div class="drag-and-drop dashed" drop="dropHandler(event)">
+                <img class="drop-img" src="/img/image.svg" alt="">
+                <p class="drop-text">Drag & Drop your image here</p>
+                <p class="dragging-drop-text m-auto">Drop your image here!</p>
+            </div>
+            <p class="or-text">Or</p>
+            <input type="file" id="file-selector" name="file-selector" hidden>
+            <label class="btn btn-primary" for="file-selector">Choose a file</label>
+        </form>
+    </div>
+
+    <div id="uploading" class="card">
+        <h2 id="uploading-title">Uploading...</h2>
+        <div class="progress" id="progress-bar">
+            <div id="loader-spacer" class="progress-bar progress-bar-success" role="progressbar"></div>
+            <div id="loader" class="progress-bar progress-bar-success" role="progressbar" style="width:30%"></div>
+        </div>
+    </div>
+
+    <script src="/js/scripts.js"></script>
+
+<%- include('partials/footer') %>
