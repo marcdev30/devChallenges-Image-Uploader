@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+    <div class="card">
+        <img id="check-circle" src="/img/check-circle.svg" alt="Check Circle">
+        <h2>Uploaded Successfully!</h2>
+        <img id="image-show" src="/files/<%= imageName %>.<%= extension %>" alt="Image Uploaded">
+        <div id="link">
+            <p id="show-link" data-link="http://localhost:3000/<%= imageName %>">http://localhost:3000/<%= imageName %></p>
+            <button id="copy-link" class="btn btn-primary" onclick="copyButton()">Copy Link</button>
+        </div>
+    </div>
+
+    <script>
+
+        const link = document.getElementById('show-link');
+        // cropText();
+
+        // new ResizeObserver(cropText).observe(document.getElementById('link'));
+
+
+        function cropText() {
+            while(check()) {
+                link.innerHTML = link.innerHTML.slice(0, -1);
+            }
+
+            link.innerHTML = link.innerHTML.slice(0, -4) + '...';
+        };
+
+        function check() {
+
+            console.log(link);
+
+            var isOverflowing = link.clientWidth < link.scrollWidth
+                    || link.clientHeight < link.scrollHeight;
+
+            return isOverflowing;
+        }
+
+        linkObj = document.getElementById('show-link');
+        linkObj.addEventListener('click', (event) => {
+            window.location.href = linkObj.getAttribute('data-link');
+        });
+
+        function copyButton() {
+            document.getElementById('copy-link').innerHTML = "Copied!";
+            navigator.clipboard.writeText(linkObj.innerHTML);
+        }
+
+
+    </script>
+
+<%- include('partials/footer') %>
