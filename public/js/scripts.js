@@ -48,7 +48,7 @@ const sendFile = async(files) => {  // Sending the file to the backend
         formData.append(files.item(key).name, files.item(key));
     });
 
-    const response = await fetch(window.location.href + '/upload', {
+    const response = await fetch(window.location.href + 'upload', {
         method: 'POST',
         body: formData,
     });
