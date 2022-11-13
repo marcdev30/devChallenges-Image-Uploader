@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node app.js"
+    "build": "webpack",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,11 @@
     "express-fileupload": "^1.4.0",
     "formidable": "^2.0.1",
     "fs": "^0.0.1-security",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "webpack": "^5.75.0",
+    "yarn": "^1.22.19"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.10.0"
   }
 }
