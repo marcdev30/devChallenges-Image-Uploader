@@ -10,68 +10,68 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 
-app.get("/", function(req, res) {
-    res.render("index.ejs");
+app.get("/", function (req, res) {
+	res.render("index.ejs");
 });
 
-app.get("/share/:imageName", function(req, res) {
-    const imageName = req.params.imageName;
+app.get("/share/:imageName", function (req, res) {
+	const imageName = req.params.imageName;
 
-    const imagePath = fileName.findFile(imageName);
+	const imagePath = fileName.findFile(imageName);
 
-    if(imagePath != null) {
-        const extension = imagePath.split('.')[1];
-        res.render("share.ejs", {imageName: imageName, extension: extension});
-    } else {
-        res.redirect("/");
-    }
+	if (imagePath != null) {
+		const extension = imagePath.split(".")[1];
+		res.render("share.ejs", { imageName: imageName, extension: extension });
+	} else {
+		res.redirect("/");
+	}
 });
 
-app.get("/:imageName", function(req, res) {
-    const imageName = req.params.imageName.split('_')[0];
+app.get("/:imageName", function (req, res) {
+	const imageName = req.params.imageName.split("_")[0];
 
-    const imagePath = fileName.findFile(imageName);
+	const imagePath = fileName.findFile(imageName);
 
-    if(imagePath != null) {
-        res.sendFile(imagePath);
-    } else {
-        res.redirect("/");
-    }
-})
-
-app.post("/upload", fileUpload({createParentPath: true}), (req, res) => {
-    const files = req.files;
-    const file = files[Object.keys(files)[0]];
-
-    validators.isValid(file);
-
-    if(validators.isValid(file)) {
-        const name = fileName.generateName();
-
-        const extension = file.name.split('.')[1];
-    
-        const filePath = path.join(__dirname, 'public', 'files', name + "." + extension);
-    
-        file.mv(filePath, (err) => {
-            res.redirect("/share/" + name);
-    
-            if(err) {
-                console.log(err);
-            }
-        });
-    
-    } else {
-        res.redirect("/");
-    }
-
-    
-
-    
+	if (imagePath != null) {
+		res.sendFile(imagePath);
+	} else {
+		res.redirect("/");
+	}
 });
 
+app.post("/upload", fileUpload({ createParentPath: true }), (req, res) => {
+	const files = req.files;
+	const file = files[Object.keys(files)[0]];
+
+	// validators.isValid(file);
+
+	if (validators.isValid(file)) {
+		const name = fileName.generateName();
+
+		const extension = file.name.split(".")[1];
+
+		const filePath = path.join(
+			__dirname,
+			"public",
+			"files",
+			name + "." + extension
+		);
+
+		file.mv(filePath, err => {
+			console.log("New file uploaded! ( " + name + " )");
+			res.redirect("/share/" + name);
+
+			if (err) {
+				console.log(err);
+			}
+		});
+	} else {
+		res.redirect("/");
+	}
+});
 
 app.listen(PORT, () => {
-    console.log("Server listening in " + PORT);
+	console.log("Server listening in " + PORT);
 });
