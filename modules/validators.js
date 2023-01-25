@@ -5,7 +5,7 @@ exports.isValid = file => {
 };
 
 function validateSize(file) {
-	if (file.size <= 5000000) {
+	if (file.size <= 50000000) {
 		return true;
 	} else {
 		return false;
